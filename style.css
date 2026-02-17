@@ -10,7 +10,9 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Split Screen Layouts */
@@ -81,17 +83,27 @@ body {
         /* Reset transform */
     }
 
-    /* Push text down in the top pane so it's visible below the header */
-    #th-pane .content-wrapper {
-        padding-top: 130px !important;
-        /* Enough space for header + spacing */
+    .content-wrapper {
+        padding-top: 2rem !important;
+        /* Reset padding */
         justify-content: flex-start;
     }
 
     .split-side {
         height: auto;
-        min-height: 60vh;
-        /* Increase height to fit card + content */
+        min-height: 50vh;
+        /* Fit 2 panes in 1 screen if possible */
+    }
+
+    /* Compact Header for Mobile */
+    .center-piece .h5 {
+        font-size: 1.1rem !important;
+        margin-bottom: 0 !important;
+    }
+
+    .center-piece small {
+        font-size: 0.6rem !important;
+        margin-top: 2px !important;
     }
 
     #th-pane {
@@ -110,11 +122,10 @@ body {
 /* Center Piece (Shared Countdown) */
 /* Top Header Bar */
 .center-piece {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: relative;
+    /* Unfixed */
     width: 100%;
-    z-index: 1000;
+    z-index: 10;
     /* Remove Card Styling */
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 40%, rgba(255, 255, 255, 0) 100%);
     backdrop-filter: none;
@@ -124,14 +135,14 @@ body {
     transform: none;
     max-width: none;
     padding: 0.5rem 10% 1rem 10% !important;
-    /* Increase side margins to 10% */
-    /* Increase side margins by ~5% */
 }
 
 /* Ensure content on both panes is pushed down */
 .content-wrapper {
-    padding-top: 100px;
-    /* Space for header */
+    padding-top: 1rem;
+    /* Reset padding */
+    width: 100%;
+    /* Ensure width */
 }
 
 .center-piece h3,
