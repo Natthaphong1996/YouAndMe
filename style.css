@@ -1,0 +1,504 @@
+:root {
+    --th-primary: #ffecd2;
+    --jp-primary: #a1c4fd;
+    --card-bg: rgba(255, 255, 255, 0.2);
+    --glass-blur: blur(8px);
+}
+
+body {
+    font-family: 'Prompt', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+/* Split Screen Layouts */
+.split-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    flex-direction: row;
+}
+
+.split-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+/* Dynamic Gradients (Base Defaults) */
+#th-pane .split-bg {
+    background: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+#jp-pane .split-bg {
+    background: linear-gradient(to bottom, #a18cd1 0%, #fbc2eb 100%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+/* Day/Night Overlay Logic */
+.split-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: black;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 1s linear;
+}
+
+/* Mobile First: Stack vertically on small screens */
+@media (max-width: 768px) {
+    .split-container {
+        flex-direction: column;
+        height: auto;
+        padding-top: 0;
+        /* Removing container padding to let BG cover top */
+    }
+
+    .center-piece {
+        top: 0;
+        width: 100%;
+        padding: 0.5rem !important;
+        /* Smaller padding on mobile */
+        border-radius: 0 0 16px 16px;
+        transform: none !important;
+        /* Reset transform */
+    }
+
+    /* Push text down in the top pane so it's visible below the header */
+    #th-pane .content-wrapper {
+        padding-top: 130px !important;
+        /* Enough space for header + spacing */
+        justify-content: flex-start;
+    }
+
+    .split-side {
+        height: auto;
+        min-height: 60vh;
+        /* Increase height to fit card + content */
+    }
+
+    #th-pane {
+        border-bottom: 2px solid white;
+        z-index: 1;
+        /* Ensure it stays under card but has space */
+    }
+
+    #jp-pane {
+        border-top: 2px solid white;
+        min-height: 40vh;
+        /* Bottom pane can be smaller */
+    }
+}
+
+/* Center Piece (Shared Countdown) */
+/* Top Header Bar */
+.center-piece {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    /* Remove Card Styling */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 40%, rgba(255, 255, 255, 0) 100%);
+    backdrop-filter: none;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    transform: none;
+    max-width: none;
+    padding: 0.5rem 10% 1rem 10% !important;
+    /* Increase side margins to 10% */
+    /* Increase side margins by ~5% */
+}
+
+/* Ensure content on both panes is pushed down */
+.content-wrapper {
+    padding-top: 100px;
+    /* Space for header */
+}
+
+.center-piece h3,
+.center-piece span {
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.display-local-time {
+    font-weight: 200;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Theming System */
+
+/* THAILAND THEMES */
+#th-pane.theme-summer .split-bg {
+    background: linear-gradient(to top, #fddb92 0%, #d1fdff 100%);
+}
+
+#th-pane.theme-rainy .split-bg {
+    background: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}
+
+#th-pane.theme-cool .split-bg {
+    background: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+}
+
+#th-pane.theme-songkran .split-bg {
+    background: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+}
+
+#th-pane.theme-loykrathong .split-bg {
+    background: linear-gradient(to top, #232526 0%, #414345 100%);
+    color: #ffeb3b;
+}
+
+/* Night Theme */
+#th-pane.theme-newyear .split-bg {
+    background: linear-gradient(to top, #4facfe 0%, #00f2fe 100%);
+}
+
+#th-pane.theme-anniversary .split-bg {
+    background: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+}
+
+/* Distinctive Pink/Purple */
+/* Valentine Theme (Shared mostly but defined per pane) */
+#th-pane.theme-valentine .split-bg {
+    background: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+}
+
+#jp-pane.theme-valentine .split-bg {
+    background: linear-gradient(to top, #fa709a 0%, #fee140 100%);
+}
+
+
+/* JAPAN THEMES */
+#jp-pane.theme-anniversary .split-bg {
+    background: linear-gradient(120deg, #f5576c 0%, #f093fb 100%);
+}
+
+/* Inverted */
+#jp-pane.theme-sakura .split-bg {
+    background: linear-gradient(to top, #ffd194 0%, #70e1f5 100%);
+}
+
+#jp-pane.theme-winter .split-bg {
+    background: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+}
+
+#jp-pane.theme-rainy .split-bg {
+    background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+
+#jp-pane.theme-hanabi .split-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+#jp-pane.theme-autumn .split-bg {
+    background: linear-gradient(to top, #f83600 0%, #f9d423 100%);
+}
+
+/* Text Overrides for Dark Themes */
+#th-pane.theme-loykrathong .text-dark,
+#jp-pane.theme-hanabi .text-dark {
+    color: white !important;
+}
+
+#th-pane.theme-loykrathong .weather-icon {
+    color: #fddb92 !important;
+}
+
+/* Animation Overlay Elements */
+.animation-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Base Animations (Falling) */
+.sakura-petal,
+.snowflake,
+.raindrop {
+    position: absolute;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Floating Up Animation (Lanterns / Hearts) */
+@keyframes floatUp {
+    0% {
+        transform: translateY(110vh) translateX(0px) scale(0.8);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-10vh) translateX(20px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* Water Floating Animation (Krathong) */
+@keyframes floatWater {
+    0% {
+        transform: translateX(-10vw) translateY(0) rotate(-2deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateX(50vw) translateY(-5px) rotate(2deg);
+    }
+
+    100% {
+        transform: translateX(110vw) translateY(0) rotate(-2deg);
+        opacity: 0;
+    }
+}
+
+/* Super Moon Glow */
+@keyframes moonGlow {
+    0% {
+        box-shadow: 0 0 20px #ffeb3b, 0 0 40px #ffc107;
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 40px #ffeb3b, 0 0 80px #ffc107;
+        transform: scale(1.05);
+    }
+
+    100% {
+        box-shadow: 0 0 20px #ffeb3b, 0 0 40px #ffc107;
+        transform: scale(1);
+    }
+}
+
+/* Variations */
+.sakura-petal {
+    background: #FFD700;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px 0;
+    animation: fall linear infinite;
+}
+
+.snowflake {
+    background: white;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: fall linear infinite;
+}
+
+.raindrop {
+    background: rgba(255, 255, 255, 0.4);
+    width: 2px;
+    height: 20px;
+    animation: fall linear infinite;
+    animation-duration: 0.5s !important;
+}
+
+/* Loy Krathong Assets */
+.lantern {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp linear infinite;
+    text-shadow: 0 0 10px orange;
+}
+
+.krathong {
+    position: absolute;
+    bottom: 5%;
+    /* Sit near bottom */
+    font-size: 30px;
+    animation: floatWater linear infinite;
+    filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3));
+    z-index: 10;
+}
+
+/* The Big Moon */
+.super-moon {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff9c4, #fbc02d);
+    box-shadow: 0 0 30px #ffeb3b;
+    animation: moonGlow 5s ease-in-out infinite;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+/* Valentine Heart */
+.floating-heart {
+    position: absolute;
+    bottom: -10%;
+    /* Start below screen */
+    font-size: 24px;
+    animation: floatUp linear infinite;
+    /* Reuse floatUp but ensure start pos is handled by JS or keyframe */
+    /* Wait, the floatUp keyframe goes from 110vh to -10vh. Perfect for falling? No, floatUp is for UP.
+       keyframe: 
+       0% { transform: translateY(110vh) ... } -> This means it starts waaaay down.
+       100% { transform: translateY(-10vh) ... } -> Ends up top.
+       Correct.
+    */
+    z-index: 10;
+}
+
+/* Theme Specific Animation Overrides */
+#jp-pane.theme-sakura .sakura-petal {
+    background: #ffb7b2;
+}
+
+/* Pink */
+#jp-pane.theme-autumn .sakura-petal {
+    background: #ff512f;
+    width: 12px;
+    height: 12px;
+}
+
+/* Red Maple-ish */
+#th-pane.theme-songkran .raindrop {
+    width: 3px;
+    height: 15px;
+    background: rgba(64, 224, 208, 0.8);
+}
+
+/* Water splash color */
+#jp-pane.theme-hanabi .snowflake {
+    background: #ff00cc;
+    box-shadow: 0 0 5px #ff00cc;
+}
+
+/* Neon dust? */
+
+/* Weather Icons */
+.weather-icon {
+    font-size: 2rem;
+    opacity: 0.8;
+}
+
+/* Modal Styles */
+.glass-panel-light {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 12px;
+}
+
+/* Runner Animation Container */
+.runner-icon {
+    position: absolute;
+    top: -5px;
+    z-index: 2;
+    /* On top of progress bar */
+    transition: left 1s ease-in-out;
+    /* Create a bobbing "running" motion */
+    animation: bounce 0.5s infinite alternate;
+}
+
+#runner-me {
+    position: absolute;
+    top: -5px;
+    right: 0;
+    z-index: 2;
+    transform: scaleX(-1);
+    /* Face left towards the runner */
+    animation: bounce 1s infinite alternate-reverse;
+    /* Slightly different bob */
+}
+
+.runner-icon i {
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+}
+
+.runner-label {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    font-weight: bold;
+    color: #444;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2px 6px;
+    border-radius: 8px;
+    white-space: nowrap;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-5px);
+    }
+}
+
+/* Ensure the "Me" icon stays flipped during bounce */
+#runner-me {
+    animation: bounce-flip 0.8s infinite alternate;
+}
+
+@keyframes bounce-flip {
+    from {
+        transform: translateY(0) scaleX(-1);
+    }
+
+    to {
+        transform: translateY(-3px) scaleX(-1);
+    }
+}
+
+/* Heart Beat Animation */
+.fa-beat {
+    animation: fa-beat 1s infinite linear;
+}
