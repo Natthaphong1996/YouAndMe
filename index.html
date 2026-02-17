@@ -27,13 +27,32 @@
         <div id="th-pane" class="split-side position-relative">
             <div class="split-bg"></div>
             <div class="split-overlay" id="th-overlay"></div>
+
+            <!-- Landmark Silhouette (Thailand) -->
+            <div class="landmark-silhouette position-absolute bottom-0 w-100 text-center text-white"
+                style="z-index: 0; pointer-events: none; opacity: 0.08; padding-bottom: 1rem;">
+                <i class="fas fa-gopuram" style="font-size: 12rem;"></i>
+            </div>
+
             <div class="content-wrapper d-flex flex-column justify-content-center align-items-center h-100 p-3 fade-in">
-                <div class="d-flex align-items-center mb-1">
-                    <i class="fas fa-sun weather-icon me-2 text-warning" id="th-weather"></i>
-                    <span class="h1 fw-bold mb-0" id="th-temp">--°C</span>
+                <!-- Profile Pic Placeholder -->
+                <div class="mb-3 position-relative">
+                    <div class="rounded-circle bg-white bg-opacity-25 d-flex align-items-center justify-content-center shadow-sm"
+                        style="width: 100px; height: 100px; backdrop-filter: blur(5px);">
+                        <i class="fas fa-user text-white opacity-75" style="font-size: 3rem;"></i>
+                    </div>
                 </div>
-                <h2 class="h4 text-uppercase letter-spacing-2 mb-0">พี่นัด 🇹🇭</h2>
-                <div class="display-local-time display-1 fw-light" id="th-clock">--:--</div>
+
+                <h2 class="h4 text-uppercase letter-spacing-2 mb-2 fw-bold">พี่นัด 🇹🇭</h2>
+
+                <div class="d-flex align-items-center mb-0">
+                    <i class="fas fa-sun weather-icon me-2 text-warning" id="th-weather"></i>
+                    <span class="h3 fw-bold mb-0" id="th-temp">--°C</span>
+                </div>
+
+                <div class="display-local-time display-1 fw-light mb-0" id="th-clock">--:--</div>
+                <div class="h5 fw-light mb-3 opacity-75" id="th-date">--/--/----</div>
+
                 <small class="badge rounded-pill bg-dark bg-opacity-25" id="th-season">กำลังตรวจสอบ...</small>
             </div>
             <div class="animation-layer th-anim"></div>
@@ -43,14 +62,33 @@
         <div id="jp-pane" class="split-side position-relative">
             <div class="split-bg"></div>
             <div class="split-overlay" id="jp-overlay"></div>
+
+            <!-- Landmark Silhouette (Japan) -->
+            <div class="landmark-silhouette position-absolute bottom-0 w-100 text-center text-white"
+                style="z-index: 0; pointer-events: none; opacity: 0.08; padding-bottom: 1rem;">
+                <i class="fas fa-torii-gate" style="font-size: 12rem;"></i>
+            </div>
+
             <div
                 class="content-wrapper d-flex flex-column justify-content-center align-items-center h-100 p-3 fade-in delay-1">
-                <div class="d-flex align-items-center mb-1">
-                    <i class="fas fa-moon weather-icon me-2 text-light" id="jp-weather"></i>
-                    <span class="h1 fw-bold mb-0" id="jp-temp">--°C</span>
+                <!-- Profile Pic Placeholder -->
+                <div class="mb-3 position-relative">
+                    <div class="rounded-circle bg-white bg-opacity-25 d-flex align-items-center justify-content-center shadow-sm"
+                        style="width: 100px; height: 100px; backdrop-filter: blur(5px);">
+                        <i class="fas fa-user text-white opacity-75" style="font-size: 3rem;"></i>
+                    </div>
                 </div>
-                <h2 class="h4 text-uppercase letter-spacing-2 mb-0">จ๋า 🇯🇵</h2>
-                <div class="display-local-time display-1 fw-light" id="jp-clock">--:--</div>
+
+                <h2 class="h4 text-uppercase letter-spacing-2 mb-2 fw-bold">จ๋า 🇯🇵</h2>
+
+                <div class="d-flex align-items-center mb-0">
+                    <i class="fas fa-moon weather-icon me-2 text-light" id="jp-weather"></i>
+                    <span class="h3 fw-bold mb-0" id="jp-temp">--°C</span>
+                </div>
+
+                <div class="display-local-time display-1 fw-light mb-0" id="jp-clock">--:--</div>
+                <div class="h5 fw-light mb-3 opacity-75" id="jp-date">--/--/----</div>
+
                 <small class="badge rounded-pill bg-dark bg-opacity-25" id="jp-season">กำลังตรวจสอบ...</small>
             </div>
             <div class="animation-layer jp-anim"></div>

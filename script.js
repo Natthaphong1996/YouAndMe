@@ -26,6 +26,7 @@ const els = {
 
     // Thailand Pane
     thClock: document.getElementById('th-clock'),
+    thDate: document.getElementById('th-date'),
     thWeather: document.getElementById('th-weather'),
     thSeason: document.getElementById('th-season'),
     thPane: document.getElementById('th-pane'),
@@ -34,6 +35,7 @@ const els = {
 
     // Japan Pane
     jpClock: document.getElementById('jp-clock'),
+    jpDate: document.getElementById('jp-date'),
     jpWeather: document.getElementById('jp-weather'),
     jpSeason: document.getElementById('jp-season'),
     jpPane: document.getElementById('jp-pane'),
@@ -56,25 +58,29 @@ const els = {
 // ------------------------------------------------------------------
 
 function updateWorldClocks() {
-    const now = new Date(); // Local system time (likely UTC+7 for dev, but could be anything)
+    const now = new Date();
 
-    // Get UTC time
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    // 1. Update Clocks & Dates
+    // Thailand
+    els.thClock.innerText = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Bangkok', hour: '2-digit', minute: '2-digit' });
+    if (els.thDate) {
+        els.thDate.innerText = now.toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok', weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    }
 
-    // Calculate Offsets
-    const thDate = new Date(utc + (3600000 * 7));
-    const jpDate = new Date(utc + (3600000 * 9));
+    // Japan
+    els.jpClock.innerText = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit' });
+    if (els.jpDate) {
+        els.jpDate.innerText = now.toLocaleDateString('th-TH', { timeZone: 'Asia/Tokyo', weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    }
 
-    // Format Display HH:MM
-    els.thClock.innerText = formatTime(thDate);
-    els.jpClock.innerText = formatTime(jpDate);
+    // 2. Update Ambience
+    const thHour = parseInt(now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Bangkok', hour: 'numeric', hour12: false }));
+    const jpHour = parseInt(now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Tokyo', hour: 'numeric', hour12: false }));
 
-    // Update Ambience (Day/Night Overlay)
-    // 0 = Bright/Day (No Overlay), 1 = Dark/Night (Full Overlay)
-    setAmbience(thDate.getHours(), els.thOverlay, els.thWeather);
-    setAmbience(jpDate.getHours(), els.jpOverlay, els.jpWeather);
+    setAmbience(thHour, els.thOverlay, els.thWeather);
+    setAmbience(jpHour, els.jpOverlay, els.jpWeather);
 
-    // Update Countdown Logic
+    // 3. Countdown Logic (Keep existing)
     const distance = TARGET_DATE - now; // Countdown based on user viewing time vs target
 
     if (distance < 0) {
