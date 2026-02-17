@@ -161,6 +161,16 @@ h2 {
     letter-spacing: 1px;
 }
 
+/* Text Visibility Enhancements (Stroke effect) */
+.split-side h2,
+.split-side .h6,
+.split-side .display-local-time,
+.split-side .weather-icon,
+.split-side #th-temp,
+.split-side #jp-temp {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
 /* Theming System */
 
 /* THAILAND THEMES */
